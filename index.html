@@ -970,37 +970,115 @@
     </div>
 
     <!-- Sixth Slide: Song -->
-    <div class="slide" id="slide6">
-        <div class="left-bg"></div>
-        <div class="circle-bg"></div>
-        <div class="bottom-bg"></div>
-        <div class="content-container">
-            <div class="centered-content">
-                <h1 class="heading-small">LISTEN TO</h1>
-                <h1 class="love-text">MY SONG<span class="dot">.</span></h1>
-                <p>I made this song just for you, to show you how much you mean to me.</p>
-                <div class="song-container">
-                    <div class="audio-player">
-                        <audio id="mySong" controls>
-                            <source src="https://drive.google.com/uc?export=preview&id=1eKZG2Q7076TMmoxMijQIO8l1XzJlFN70" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                        <div class="audio-visualization">
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                            <div class="audio-bar"></div>
-                        </div>
+<div class="slide" id="slide6">
+    <div class="left-bg"></div>
+    <div class="circle-bg"></div>
+    <div class="bottom-bg"></div>
+    <div class="content-container">
+        <div class="centered-content">
+            <h1 class="heading-small">LISTEN TO</h1>
+            <h1 class="love-text">MY SONG<span class="dot">.</span></h1>
+            <p>I made this song just for you, to show you how much you mean to me.</p>
+            <div class="song-container">
+                <div class="audio-player">
+                    <audio id="mySong" controls>
+                        <source src="https://drive.google.com/uc?export=preview&id=1eKZG2Q7076TMmoxMijQIO8l1XzJlFN70" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <button class="play-btn" onclick="togglePlay()">▶</button>
+                    <div class="audio-visualization">
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
                     </div>
                 </div>
-                <button class="btn" onclick="nextSlide()">NEXT</button>
             </div>
+            <button class="btn" onclick="nextSlide()">NEXT</button>
         </div>
     </div>
+</div>
+
+<style>
+    .audio-player {
+        position: relative;
+        text-align: center;
+    }
+
+    .play-btn {
+        background-color: #ff4d6d;
+        border: none;
+        color: white;
+        font-size: 20px;
+        padding: 10px 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .play-btn:hover {
+        background-color: #ff1f50;
+    }
+
+    .audio-visualization {
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .audio-bar {
+        width: 5px;
+        height: 20px;
+        background-color: #ff4d6d;
+        border-radius: 4px;
+        animation: bounce 1s infinite ease-in-out alternate;
+    }
+
+    @keyframes bounce {
+        from {
+            height: 5px;
+        }
+        to {
+            height: 20px;
+        }
+    }
+</style>
+
+<script>
+    const audio = document.getElementById('mySong');
+    const playBtn = document.querySelector('.play-btn');
+    const bars = document.querySelectorAll('.audio-bar');
+
+    function togglePlay() {
+        if (audio.paused) {
+            audio.play();
+            playBtn.textContent = "⏸";
+        } else {
+            audio.pause();
+            playBtn.textContent = "▶";
+        }
+    }
+
+    // Animate bars based on audio playing
+    function animateBars() {
+        if (!audio.paused) {
+            bars.forEach((bar, index) => {
+                bar.style.animationDelay = `${index * 0.1}s`;
+            });
+        } else {
+            bars.forEach(bar => bar.style.animation = 'none');
+        }
+    }
+
+    audio.addEventListener('play', animateBars);
+    audio.addEventListener('pause', animateBars);
+</script>
+
 
     <!-- Seventh Slide: Closing with Night Sky -->
     <div class="slide" id="slide7" style="background: linear-gradient(135deg, #0a0a18 0%, #1a1a3a 100%);">
